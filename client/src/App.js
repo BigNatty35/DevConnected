@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom'; // Allows for custom routes in the app
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
