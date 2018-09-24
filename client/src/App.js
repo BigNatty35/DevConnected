@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'; // Allows for custom routes in the app
-
+// Browser as Route allow to use the word Router to wrap the function
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
