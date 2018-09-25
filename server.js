@@ -12,6 +12,7 @@ const app = express();
 // Body parser middleware
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
 // DB Config
 const db = require('./config/keys').mongoURI;
 
@@ -31,6 +32,10 @@ require('./config/passport')(passport);
 app.use('/api/users', users);
 app.use('/api/posts', posts);
 app.use('/api/profile', profile);
+
+
 const port = process.envPORT || 5000;
 
+
+//tell express which port to listen on
 app.listen(port, () => console.log(`Server running on ${port}`));

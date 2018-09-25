@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-
+const validateRegisterInput = require('../../validation/register');
 //Load User Model
 const User = require('../../models/Users');
 //@route GET api/Users/test
@@ -19,11 +19,20 @@ router.get('/test', (req, res) => res.json({msg: "Users Works"}));
 //@access Public
 
 router.post('/register', (req,res) => {
+  const { errors, isValid } = validateRegisterInput(req.body);
+
+  //Check Validation
+  if(!isValid) {
+    return res.status(400).json(errors); 
+  }
+
   User.findOne({email: req.body.email})
     .then(user => {
       if(user) {
-        return res.status(400).json({error: "User already exists"});
+        errors.email = 'Email already exists';
+        return res.status(400).json(errors);
       } else {
+        // User does not exist so we create a new user.
         const avatar = gravatar.url(req.body.email, {
           s: '200', //Size
           r: 'pg', //Rating
@@ -37,6 +46,7 @@ router.post('/register', (req,res) => {
           password: req.body.password
         });
 
+        //We need to salt the password
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if(err) throw err;
@@ -77,7 +87,7 @@ router.post('/login', (req, res) => {
              avatar: user.avatar
            };
 
-           //Sign Token
+           //Create & Sign Token to send back
             jwt.sign(
               payload, 
               keys.secretOrKey,
