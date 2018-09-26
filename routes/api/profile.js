@@ -14,14 +14,12 @@ const User = require('../../models/Users');
 //@route GET api/profile/test
 //@desc Tests profile route
 //@access Public
-
 router.get('/test', (req, res) => res.json({ msg: "Profile Works" }));
 
 
 //@route GET api/profile
 //@desc Get current users profile
 //@access Private
-
 router.get(
   '/', 
   passport.authenticate('jwt', {session: false}), 
@@ -41,10 +39,28 @@ router.get(
 });
 
 
+//@route GET api/profile/all
+//@desc Get all of the user profiles
+//@access Public
+router.get('/all', (req, res) => {
+  const errors = {};
+  Profile.find()
+    .then(profiles => {
+      if(!profiles) {
+        errors.noprofiles = "There are no profiles";
+        res.status(404).json(errors);
+      }
+
+      res.json(profiles);
+    })
+    .catch(err => res.status(404).json({errors: "There are no profiles"}));
+});
+
+
+
 //@route GET api/profile/handle/:handle
 //@desc Get profile by handle
 //@access Public
-
 router.get('/handle/:handle', (req, res) => {
   const errors = {};
   Profile.findOne({handle: req.params.handle})
@@ -63,7 +79,6 @@ router.get('/handle/:handle', (req, res) => {
 //@route GET api/profile/user/:user_id
 //@desc Get profile by user id
 //@access Public
-
 router.get('/user/:user_id', (req, res) => {
   const errors = {};
   Profile.findOne({ user: req.params.user_id })
@@ -78,6 +93,7 @@ router.get('/user/:user_id', (req, res) => {
     })
     .catch(err => res.status(404).json({errors: 'Profile doesnt exist'}));
 });
+
 //@route POST api/profile
 //@desc Create or Edit current users profile
 //@access Private
@@ -140,4 +156,34 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
     }
   });
 });
+
+
+//@route POST api/profile/experience
+//@desc Add experience to the profile
+//@access Private
+
+router.get('/experience', passport.authenticate('jwt', {session: false}), (req, res) => {
+  
+  Profile.findOne({user: req.user.id})
+    .then(profile => {
+
+      const newExp = {
+        title: req.body.title,
+        company: req.body.company,
+        location: req.body.location,
+        from: req.body.from,
+        to: req.body.to,
+        current: req.body.current,
+        description: req.body.description
+      };
+
+      // Add to exp array 
+      profile.experience.unshift(newExp);
+      profile.save().then(profile => res.json(profile));
+    });
+});
+
+
 module.exports = router;
+
+
