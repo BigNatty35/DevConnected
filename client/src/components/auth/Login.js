@@ -1,6 +1,20 @@
 import React, { Component } from "react";
 // This will have the functionality for logging in
 class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      errors: {}
+    };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({[e.target.name]: e.target.value});
+  }
+
   render() {
     return (
       <div className="login">
@@ -11,7 +25,7 @@ class Login extends Component {
               <p className="lead text-center">Sign in to your DevConnector account</p>
               <form action="dashboard.html">
                 <div className="form-group">
-                  <input type="email" className="form-control form-control-lg" placeholder="Email Address" name="email" />
+                  <input type="email" className="form-control form-control-lg" placeholder="Email Address" value={this.state.name} name="email" />
                 </div>
                 <div className="form-group">
                   <input type="password" className="form-control form-control-lg" placeholder="Password" name="password" />
