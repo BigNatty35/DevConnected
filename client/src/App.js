@@ -10,12 +10,13 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import './App.css';
 
-
+/* The Provider passes the store(app state) to all components*/ 
+/*Router allows the components to have different routes specified by 'Route'*/
 class App extends Component {
   render() {
     return (
-      <Provider store={store}> {/* The Provider passes the store(app state) to all components*/}
-        <Router> {/*Router allows the components to have different routes specified by 'Route'*/}
+    <Provider store={store}> 
+        <Router> 
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Landing} />
