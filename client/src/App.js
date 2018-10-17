@@ -11,13 +11,11 @@ import Register from './components/auth/Register';
 import './App.css';
 
 
-
-
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <Router>
+      <Provider store={store}> {/* The Provider passes the store(app state) to all components*/}
+        <Router> {/*Router allows the components to have different routes specified by 'Route'*/}
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Landing} />
