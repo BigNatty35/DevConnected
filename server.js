@@ -3,11 +3,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
-// bring in the routes
+// bring in the routes created for incoming requests
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
 const profile = require('./routes/api/profile');
 
+// initialize express in the app variable
 const app = express();
 
 // Body parser middleware
@@ -29,7 +30,7 @@ app.use(passport.initialize());
 //Passport Config
 require('./config/passport')(passport);
 
-// Use Routes
+// Tells express which routes to use
 app.use('/api/users', users);
 app.use('/api/posts', posts);
 app.use('/api/profile', profile);

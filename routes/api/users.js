@@ -7,12 +7,14 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+
+
 //Load User Model
 const User = require('../../models/Users');
+
 //@route GET api/Users/test
 //@desc Tests Users route
 //@access Public
-
 router.get('/test', (req, res) => res.json({msg: "Users Works"}));
 
 //@route GET api/Users/register
@@ -104,7 +106,7 @@ router.post('/login', (req, res) => {
               keys.secretOrKey,
               { expiresIn: 3600},
               (err, token) => {
-                res.json({
+                res.json({ // sends the token as a response.
                   success: true,
                   token: 'Bearer ' + token
                 });
