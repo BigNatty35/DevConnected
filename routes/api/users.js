@@ -24,6 +24,7 @@ router.post('/register', (req,res) => {
 
   //Check Validation
   if(!isValid) {
+    // if not valid, send back the errors object.
     return res.status(400).json(errors); 
   }
 

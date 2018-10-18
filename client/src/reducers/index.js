@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux';
 import authReducer from './authReducer';
-
+import errorsReducer from './errorsReducers';
 
 //This is the rootReducer. It just combines all of the reducers into one big object.
 export default combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  errors: errorsReducer
 });
