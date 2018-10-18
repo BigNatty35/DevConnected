@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import classnames from 'classnames';
 import {connect} from 'react-redux';
 import {registerUser} from '../../actions/authActions';
@@ -30,11 +29,7 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    // axios
-    // .post('/api/users/register', newUser)
-    // .then(res => console.log(res.data))
-    // .catch(err => this.setState({errors: err.response.data}));
-  // axios.get('/api/users/test').then(res => console.log(res.data)).catch(err => err.response.data);
+    
   this.props.registerUser(newUser);
   }
   render() {
