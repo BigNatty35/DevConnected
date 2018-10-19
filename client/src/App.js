@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'; // Allows for custom routes in the app
 // Browser as Route allow to use the word Router to wrap the function
 import { Provider } from 'react-redux';
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import {setCurrentUser} from './actions/authActions';
 import store from './store';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -9,6 +12,16 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import './App.css';
+
+//Check to see if there is a current user/token
+if(localStorage.jwtToken) {
+  //if there is a current user, put token in header.
+  setAuthToken(localStorage.jwtToken);
+  // decode token to get user info and exipiration.
+  const decoded = jwt_decode(localStorage.jwtToken);
+  // Set user and is authenticated
+  store.dispatch(setCurrentUser(decoded));
+}
 
 /* The Provider passes the store(app state) to all components*/ 
 /*Router allows the components to have different routes specified by 'Route'*/
