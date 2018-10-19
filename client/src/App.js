@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom'; // Allows for c
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
-import {setCurrentUser} from './actions/authActions';
+import {setCurrentUser, logoutUser} from './actions/authActions';
 import store from './store';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -21,6 +21,12 @@ if(localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   // Set user and is authenticated
   store.dispatch(setCurrentUser(decoded));
+  //If user token has expired
+  const currentTime = Date.now() / 1000;
+  //if time has run out then logout the user.
+  if(decoded.exp < currentTime) {
+    store.dispatch(logoutUser);
+  }
 }
 
 /* The Provider passes the store(app state) to all components*/ 
