@@ -11,7 +11,9 @@ import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Dashboard from './components/dashboard/Dashboard';
 import './App.css';
+import { clearCurrentProfile } from './actions/profileActions';
 
 //Check to see if there is a current user/token
 if(localStorage.jwtToken) {
@@ -25,7 +27,8 @@ if(localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   //if time has run out then logout the user.
   if(decoded.exp < currentTime) {
-    store.dispatch(logoutUser);
+    store.dispatch(logoutUser());
+    store.dispatch(clearCurrentProfile());
     window.location.href = "/login";
   }
   //TODO: Clear current user
@@ -47,6 +50,7 @@ class App extends Component {
             <div className="container">
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/dashboard" component={Dashboard} />
             </div>
             <Footer />
           </div>
