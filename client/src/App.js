@@ -26,7 +26,12 @@ if(localStorage.jwtToken) {
   //if time has run out then logout the user.
   if(decoded.exp < currentTime) {
     store.dispatch(logoutUser);
+    window.location.href = "/login";
   }
+  //TODO: Clear current user
+
+  // redirect to login
+  
 }
 
 /* The Provider passes the store(app state) to all components*/ 
@@ -50,5 +55,7 @@ class App extends Component {
     );
   }
 }
+
+
 
 export default App;
