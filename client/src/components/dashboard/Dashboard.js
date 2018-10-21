@@ -17,7 +17,7 @@ class Dashboard extends Component {
     const {loading, profile} = this.props.profile;
 
     let dashboadContent;
-
+    //If loading is TRUE or there isn't a profile yet, show spinner
     if(profile === null || loading) {
       dashboadContent = <Spinner/>;
     } else {
