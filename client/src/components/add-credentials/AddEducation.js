@@ -91,7 +91,7 @@ class AddEducation extends Component {
                   error={errors.degree}
                 />
                 <TextFieldGroup
-                  placeholder="Field of Study"
+                  placeholder="* Field of Study"
                   name="fieldofstudy"
                   value={this.state.fieldofstudy}
                   onChange={this.onChange}
@@ -129,7 +129,7 @@ class AddEducation extends Component {
                   </label>
                 </div>
                 <TextAreaFieldGroup
-                  placeholder="Job Description"
+                  placeholder="Program Description"
                   name="description"
                   value={this.state.description}
                   onChange={this.onChange}
@@ -151,7 +151,7 @@ class AddEducation extends Component {
 }
 
 AddEducation.propTypes = {
-  addExperience: PropTypes.func.isRequired,
+  addEducation: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
