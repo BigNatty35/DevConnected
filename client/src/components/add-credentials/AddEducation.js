@@ -34,7 +34,7 @@ class AddEducation extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
+// This is the education object being sent to the backend
     const expData = {
       school: this.state.school,
       degree: this.state.degree,
